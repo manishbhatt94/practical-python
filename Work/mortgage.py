@@ -14,12 +14,27 @@ extra_payment_end_month = (5 + 4) * 12  # 108
 
 while principal > 0:
     month = month + 1
-    principal = principal * (1 + rate / 12) - payment
+
+    # Monthly installment payment handling
+    if (curr_principal := principal * (1 + rate / 12)) < payment:
+        principal = 0
+        total_paid = total_paid + curr_principal
+    else:
+        principal = curr_principal - payment
+        total_paid = total_paid + payment
+
+    # Extra payment months handling
     if extra_payment_start_month <= month <= extra_payment_end_month:
-        principal = principal - extra_payment
-        total_paid = total_paid + extra_payment
-    total_paid = total_paid + payment
+        if principal < extra_payment:
+            principal = 0
+            total_paid = total_paid + principal
+        else:
+            principal = principal - extra_payment
+            total_paid = total_paid + extra_payment
+
+    # Log current month's payment info
     print(f"{month} {round(total_paid, 2)} {round(principal, 2)}")
+
 
 print("Total paid", total_paid)
 print("Months", month)
