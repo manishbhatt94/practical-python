@@ -33,7 +33,7 @@ while principal > 0:
             total_paid = total_paid + extra_payment
 
     # Log current month's payment info
-    print(f"{month} {round(total_paid, 2)} {round(principal, 2)}")
+    print(f"{month:>3d} {round(total_paid, 2):>10.2f} {round(principal, 2):>10.2f}")
 
 
 print("Total paid", total_paid)
