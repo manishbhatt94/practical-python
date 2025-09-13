@@ -9,9 +9,9 @@ def portfolio_cost(filename):
     given filename (path) of a portfolio CSV file containing
     (name, shares, price) records
     """
+    total = 0.0
     with open(filename, "rt", newline="") as file:
         reader = csv.reader(file)
-        total = 0
         _ = next(reader)  # skip the header row
         for row in reader:
             try:
@@ -21,7 +21,7 @@ def portfolio_cost(filename):
             except ValueError:
                 print("Invalid record:", row)
                 continue
-        return total
+    return total
 
 
 if len(sys.argv) == 2:
